@@ -58,14 +58,14 @@ sub is_holiday {
   my %args = $_[0] =~ m/[^0-9-]/ ? @_ : ( year => $_[0], month => $_[1], day => $_[2] );
 
   my ( $yyyy, $month, $day ) = ( $args{date} )
-    ? $args{date} =~ m{^([0-9]{4})-([0-9]{2})-([0-9]{2})$}
+    ? $args{date} =~ m{^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})$}
     : @args{qw( year month day )};
 
   unless ($yyyy && $month && $day) {
     die "Must specify either 'date' or 'year', 'month' and 'day'";
   }
-  my $mm = $month ? sprintf('%01d', $month) : undef;
-  my $dd = $day ? sprintf('%01d', $day) : undef;
+  my $mm = $month ? sprintf('%02d', $month) : undef;
+  my $dd = $day ? sprintf('%02d', $day) : undef;
 
   my $holiday = $ALL_HOLIDAYS->{$yyyy}{$mm}{$dd}{name};
   return $holiday;
@@ -79,15 +79,15 @@ sub holidays {
   my %args = $_[0] =~ m/[^0-9-]/ ? @_ : ( year => $_[0], month => $_[1], day => $_[2] );
 
   my ( $yyyy, $month, $day ) = ( $args{date} )
-    ? $args{date} =~ m{^([0-9]{4})-([0-9]{2})-([0-9]{2})$}
+    ? $args{date} =~ m{^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})$}
     : @args{qw( year month day )};
 
   unless ($yyyy) {
     die "Must specify either 'date' or 'year'";
   }
 
-  my $mm = $month ? sprintf('%01d', $month) : undef;
-  my $dd = $day ? sprintf('%01d', $day) : undef;
+  my $mm = $month ? sprintf('%02d', $month) : undef;
+  my $dd = $day ? sprintf('%02d', $day) : undef;
   my $holidays = { };
   if ($dd) {
     my $holiday = $ALL_HOLIDAYS->{$yyyy}{$mm}{$dd};
