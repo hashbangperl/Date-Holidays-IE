@@ -1,0 +1,6 @@
+Changes
+Makefile.PL
+MANIFEST
+README
+t/Date-Holidays-IE.t
+lib/Date/Holidays/IE.pm
